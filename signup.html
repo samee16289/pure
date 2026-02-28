@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up — Shree Data</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body class="auth-page">
+<div class="auth-layout">
+
+  <!-- Left Panel -->
+  <div class="auth-panel">
+    <div class="auth-panel-content">
+      <a href="index.html" class="logo"><span class="logo-icon">🌿</span><span>Shree<em>Data</em></span></a>
+      <div class="auth-panel-visual">
+        <div class="panel-orb p1"></div>
+        <div class="panel-orb p2"></div>
+        <div class="panel-icons"><span>🌾</span><span>🌿</span><span>🫒</span></div>
+      </div>
+      <h2 class="panel-title">Join Our Family</h2>
+      <p class="panel-sub">Become part of the Shree Data community and discover the purest organic oils.</p>
+      <div class="panel-features">
+        <div class="pf">✓ Exclusive Member Discounts</div>
+        <div class="pf">✓ Order History &amp; Tracking</div>
+        <div class="pf">✓ Early Access to New Products</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Form -->
+  <div class="auth-form-wrap">
+    <div class="auth-form-box">
+      <h1 class="auth-title">Create Account</h1>
+      <p class="auth-subtitle">It's free and always will be</p>
+      <div class="alert"         id="errAlert" style="display:none"></div>
+      <div class="alert success" id="sucAlert" style="display:none"></div>
+      <form onsubmit="handleSignup(event)">
+        <div class="form-group">
+          <label>Full Name</label>
+          <div class="input-wrap">
+            <span class="input-icon">👤</span>
+            <input type="text" id="sName" placeholder="Priya Sharma" required/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <div class="input-wrap">
+            <span class="input-icon">📧</span>
+            <input type="email" id="sEmail" placeholder="you@example.com" required/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <div class="input-wrap">
+            <span class="input-icon">🔒</span>
+            <input type="password" id="sPass" placeholder="Min. 6 characters" required/>
+            <button type="button" class="toggle-pass" onclick="togglePass('sPass',this)">👁</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <div class="input-wrap">
+            <span class="input-icon">🔒</span>
+            <input type="password" id="sConfirm" placeholder="Repeat your password" required/>
+          </div>
+        </div>
+        <button type="submit" class="btn-primary full-width" id="signupBtn">Create Account →</button>
+      </form>
+      <div class="auth-divider"><span>or</span></div>
+      <p class="auth-switch">Already have an account? <a href="login.html">Sign in →</a></p>
+    </div>
+  </div>
+
+</div>
+<div class="toast" id="toast"></div>
+<script src="script.js"></script>
+<script>
+  async function handleSignup(e) {
+    e.preventDefault();
+    const name    = document.getElementById('sName').value.trim();
+    const email   = document.getElementById('sEmail').value.trim();
+    const pass    = document.getElementById('sPass').value;
+    const confirm = document.getElementById('sConfirm').value;
+    const btn     = document.getElementById('signupBtn');
+    const err     = document.getElementById('errAlert');
+    const suc     = document.getElementById('sucAlert');
+    err.style.display = 'none';
+
+    if (pass !== confirm) {
+      err.textContent = '✗ Passwords do not match.';
+      err.style.display = 'block'; return;
+    }
+    if (pass.length < 6) {
+      err.textContent = '✗ Password must be at least 6 characters.';
+      err.style.display = 'block'; return;
+    }
+
+    btn.textContent = 'Creating account...';
+    btn.disabled    = true;
+
+    try {
+      const res = await jsonp({ action: 'addUser', name, email, password: pass }); // ✅ JSONP
+      if (res.success) {
+        suc.textContent   = '✓ Account created! Redirecting to login...';
+        suc.style.display = 'block';
+        setTimeout(() => window.location.href = 'login.html', 1500);
+      } else {
+        err.textContent   = '✗ ' + (res.message || 'Error creating account.');
+        err.style.display = 'block';
+        btn.textContent   = 'Create Account →';
+        btn.disabled      = false;
+      }
+    } catch (ex) {
+      err.textContent   = '✗ ' + ex.message;
+      err.style.display = 'block';
+      btn.textContent   = 'Create Account →';
+      btn.disabled      = false;
+    }
+  }
+</script>
+</body>
+</html>

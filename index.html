@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shree Data — Pure Organic Oils</title>
+  <meta name="description" content="Shree Data offers the finest cold-pressed, organic oils. Pure, authentic, and ethically harvested."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- Loader -->
+<div id="loader" class="loader">
+  <div class="loader-inner">
+    <div class="loader-leaf">🌿</div>
+    <p>Harvesting goodness...</p>
+  </div>
+</div>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-icon">🌿</span>
+      <span>Shree<em>Data</em></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home"     class="nav-link active">Home</a></li>
+      <li><a href="#products" class="nav-link">Products</a></li>
+      <li><a href="#about"    class="nav-link">About</a></li>
+      <li><a href="#contact"  class="nav-link">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <div id="userSection">
+        <a href="login.html" class="btn-outline">Login</a>
+      </div>
+      <button class="cart-btn" onclick="toggleCart()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+        </svg>
+        <span class="cart-badge" id="cartBadge">0</span>
+      </button>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Cart Drawer -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-drawer"  id="cartDrawer">
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <button class="cart-close" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-items"  id="cartItems"></div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-total">
+      <span>Total</span>
+      <span id="cartTotal">₹0</span>
+    </div>
+    <button class="btn-primary full-width" onclick="checkout()">Checkout →</button>
+  </div>
+  <div class="cart-empty" id="cartEmpty">
+    <div class="cart-empty-icon">🛒</div>
+    <p>Your cart is empty</p>
+    <span>Add some pure goodness</span>
+  </div>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="home">
+  <div class="hero-bg">
+    <div class="hero-orb orb-1"></div>
+    <div class="hero-orb orb-2"></div>
+    <div class="hero-orb orb-3"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">✦ Cold Pressed &amp; Organic</div>
+    <h1 class="hero-title">
+      Nature's Purest<br/>
+      <em>Oils, Bottled</em><br/>
+      For You
+    </h1>
+    <p class="hero-subtitle">Ethically harvested, cold-pressed organic oils that nourish your body, mind, and soul — straight from nature's finest sources.</p>
+    <div class="hero-actions">
+      <a href="#products" class="btn-primary">Shop Now →</a>
+      <a href="#about"    class="btn-ghost">Our Story</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><strong>100%</strong><span>Organic</span></div>
+      <div class="stat-divider">|</div>
+      <div class="stat"><strong>50+</strong><span>Products</span></div>
+      <div class="stat-divider">|</div>
+      <div class="stat"><strong>10k+</strong><span>Customers</span></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-img-wrap">
+      <div class="hero-img-bg"></div>
+      <div class="hero-bottles">
+        <div class="bottle b1">🫒</div>
+        <div class="bottle b2">🌻</div>
+        <div class="bottle b3">🥥</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Strip -->
+<div class="features-strip">
+  <div class="feat"><span>🌿</span> 100% Natural</div>
+  <div class="feat"><span>❄️</span> Cold Pressed</div>
+  <div class="feat"><span>🚚</span> Free Delivery ₹499+</div>
+  <div class="feat"><span>♻️</span> Eco Packaging</div>
+  <div class="feat"><span>✓</span> Lab Tested</div>
+</div>
+
+<!-- Products -->
+<section class="products-section" id="products">
+  <div class="section-header">
+    <div class="section-tag">Our Collection</div>
+    <h2 class="section-title">Pure Organic <em>Oils</em></h2>
+    <p class="section-sub">Discover nature's finest, cold-pressed and bottled with care</p>
+  </div>
+  <div class="filter-bar">
+    <div class="search-wrap">
+      <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input type="text" id="searchInput" placeholder="Search oils..." oninput="renderProducts()"/>
+    </div>
+    <div class="category-tabs" id="categoryTabs">
+      <button class="cat-tab active" onclick="setCategory('all',this)">All</button>
+    </div>
+  </div>
+  <div class="products-grid"  id="productsGrid"></div>
+  <div class="products-empty" id="productsEmpty" style="display:none">
+    <div>🔍</div>
+    <p>No products found</p>
+  </div>
+</section>
+
+<!-- About -->
+<section class="about-section" id="about">
+  <div class="about-visual">
+    <div class="about-img">
+      <div class="about-circle c1"></div>
+      <div class="about-circle c2"></div>
+      <div class="about-leaf">🌿</div>
+    </div>
+  </div>
+  <div class="about-content">
+    <div class="section-tag">Our Story</div>
+    <h2 class="section-title">Rooted in<br/><em>Tradition</em></h2>
+    <p>Shree Data was born from a deep respect for ancient wisdom. For centuries, families across India pressed oils the traditional way — cold and pure. We've preserved that heritage and brought it to you.</p>
+    <p>Every bottle is traceable to its source. No additives, no preservatives, no compromise. Just pure, natural goodness as nature intended.</p>
+    <div class="about-pillars">
+      <div class="pillar">
+        <div class="pillar-icon">🌱</div>
+        <h4>Farm to Bottle</h4>
+        <p>Direct sourcing from certified organic farms</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">🧪</div>
+        <h4>Lab Certified</h4>
+        <p>Every batch tested for purity</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">🤲</div>
+        <h4>Ethically Made</h4>
+        <p>Fair wages, sustainable practices</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials">
+  <div class="section-header">
+    <div class="section-tag">Testimonials</div>
+    <h2 class="section-title">What Our <em>Customers</em> Say</h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p>"The cold-pressed coconut oil is absolutely divine. You can taste the difference. My entire family loves it!"</p>
+      <div class="testi-author"><strong>Priya Sharma</strong><span>Mumbai</span></div>
+    </div>
+    <div class="testi-card featured">
+      <div class="testi-stars">★★★★★</div>
+      <p>"I've been using Shree Data's sesame oil for cooking and it has transformed every dish. Pure, fragrant, and incredibly authentic."</p>
+      <div class="testi-author"><strong>Rajesh Patel</strong><span>Ahmedabad</span></div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p>"Best quality oils I've ever bought online. Eco-friendly packaging and super fast delivery. Highly recommend!"</p>
+      <div class="testi-author"><strong>Anita Mehta</strong><span>Delhi</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="contact-section" id="contact">
+  <div class="contact-inner">
+    <div class="contact-info">
+      <div class="section-tag">Get In Touch</div>
+      <h2 class="section-title">We'd Love<br/><em>To Hear</em> From You</h2>
+      <p>Have questions about our products or need help with your order? We're here for you.</p>
+      <div class="contact-details">
+        <div class="contact-item"><span>📧</span><span>hello@shreedata.com</span></div>
+        <div class="contact-item"><span>📞</span><span>+91 98765 43210</span></div>
+        <div class="contact-item"><span>📍</span><span>Ahmedabad, Gujarat, India</span></div>
+      </div>
+    </div>
+    <form class="contact-form" onsubmit="submitContact(event)">
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" placeholder="Priya Sharma" required/>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="priya@example.com" required/>
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea rows="4" placeholder="Tell us how we can help..." required></textarea>
+      </div>
+      <button type="submit" class="btn-primary">Send Message →</button>
+    </form>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="logo"><span class="logo-icon">🌿</span><span>Shree<em>Data</em></span></a>
+      <p>Pure, organic, cold-pressed oils crafted with love and rooted in tradition.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <a href="#home">Home</a>
+      <a href="#products">Products</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-links">
+      <h4>Account</h4>
+      <a href="login.html">Login</a>
+      <a href="signup.html">Sign Up</a>
+      <a href="admin-login.html">Admin</a>
+    </div>
+    <div class="footer-links">
+      <h4>Support</h4>
+      <a href="#">FAQ</a>
+      <a href="#">Shipping Policy</a>
+      <a href="#">Return Policy</a>
+      <a href="#">Privacy Policy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Shree Data. All rights reserved. Made with 🌿 in India</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="script.js"></script>
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const email = localStorage.getItem('userEmail');
+    if (email) {
+      document.getElementById('userSection').innerHTML = `
+        <div class="user-menu">
+          <span class="user-avatar">👤</span>
+          <span class="user-email">${email.split('@')[0]}</span>
+          <button onclick="logoutUser()" class="btn-outline">Logout</button>
+        </div>`;
+    }
+    loadProducts();
+    updateCartBadge();
+    const loader = document.getElementById('loader');
+    setTimeout(() => { loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 500); }, 1200);
+  });
+</script>
+</body>
+</html>
